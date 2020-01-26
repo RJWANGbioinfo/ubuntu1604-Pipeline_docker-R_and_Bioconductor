@@ -42,8 +42,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 		unzip libsqlite3-dev libbz2-dev libssl-dev python python-dev \
                 python-pip git libxml2-dev software-properties-common wget tree vim sed \
                 subversion g++ gcc gfortran curl zlib1g-dev build-essential \
-		libffi-dev  \
-        && install.r binb linl pinp tint 
+		libffi-dev  
 
 RUN pip install -U setuptools
 RUN R --slave -e "install.packages(c('BiocManager','devtools', 'gplots', 'R.utils', 'Seurat', 'rmarkdown', 'RColorBrewer', 'Cairo','dplyr','tidyr','magrittr','matrixStats','readr','openxlsx','PerformanceAnalytics','pheatmap','gridExtra','dendextend','scales','ggrepel'), dependencies = TRUE, repos='https://cloud.r-project.org')"
