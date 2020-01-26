@@ -29,8 +29,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
                 pandoc \
                 r-cran-formatr \
                 r-cran-ggplot2 \
-                r-cran-knitr \
-		r-cran-rmarkdown \
                 r-cran-runit \
                 r-cran-testthat \
                 texinfo \
@@ -39,7 +37,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
                 texlive-latex-extra \
                 texlive-latex-recommended \
                 texlive-luatex \
-                texlive-plain-generic \
                 texlive-science \
                 texlive-xetex \
 		unzip libsqlite3-dev libbz2-dev libssl-dev python python-dev \
