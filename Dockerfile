@@ -20,10 +20,7 @@ RUN chmod 0777 /opt
 # Override the default pager used by R
 ENV PAGER /usr/bin/pager
 
-COPY package.ubuntu-1604 /package.sh
-COPY build.sh .
-ENTRYPOINT ./build.sh
-
+# Install packages
 RUN apt-get update && apt-get install -y --no-install-recommends \
                 ghostscript \
                 lmodern \
