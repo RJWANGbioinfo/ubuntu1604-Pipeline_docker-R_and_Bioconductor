@@ -7,9 +7,11 @@ ENV OS_IDENTIFIER ubuntu-1604
 RUN set -x \
   && sed -i "s|# deb-src|deb-src|g" /etc/apt/sources.list \
   && export DEBIAN_FRONTEND=noninteractive \
+  && add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/' \
+  && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9 \  
   && apt-get update \
   && apt-get install -y libcurl4-openssl-dev libicu-dev libopenblas-base wget python-pip ruby ruby-dev \
-  && apt-get build-dep -y r-base
+  && apt-get build-dep -y r-base r-base-core r-base-dev r-recommended
 
 RUN pip install awscli
 
