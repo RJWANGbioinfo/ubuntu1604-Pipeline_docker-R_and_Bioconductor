@@ -3,12 +3,14 @@ FROM ubuntu:xenial
 LABEL maintainer="Ruijia(Ray) Wang <Ruijia.Wang@umassmed.edu>"
 
 ENV OS_IDENTIFIER ubuntu-1604
-RUN apt-get install software-properties-common && apt-get update
+
 RUN set -x \
   && sed -i "s|# deb-src|deb-src|g" /etc/apt/sources.list \
   && export DEBIAN_FRONTEND=noninteractive \
+  && apt-get update \
+  && apt-get install software-properties-common \
   && add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/' \
-  && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9 \  
+  && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9 \    
   && apt-get update \
   && apt-get install -y libcurl4-openssl-dev libicu-dev libopenblas-base wget python-pip ruby ruby-dev \
   && apt-get build-dep -y r-base r-base-core r-base-dev r-recommended
