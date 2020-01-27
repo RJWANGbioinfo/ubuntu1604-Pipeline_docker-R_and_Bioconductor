@@ -8,7 +8,7 @@ RUN set -x \
   && sed -i "s|# deb-src|deb-src|g" /etc/apt/sources.list \
   && export DEBIAN_FRONTEND=noninteractive \
   && apt-get update \
-  && apt-get install software-properties-common \
+  && apt-get install -y software-properties-common \
   && add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/' \
   && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9 \    
   && apt-get update \
