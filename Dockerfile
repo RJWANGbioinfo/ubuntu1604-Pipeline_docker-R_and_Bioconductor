@@ -3,7 +3,7 @@ FROM ubuntu:xenial
 LABEL maintainer="Ruijia(Ray) Wang <Ruijia.Wang@umassmed.edu>"
 
 ENV OS_IDENTIFIER ubuntu-1604
-
+RUN apt-get install software-properties-common && apt-get update
 RUN set -x \
   && sed -i "s|# deb-src|deb-src|g" /etc/apt/sources.list \
   && export DEBIAN_FRONTEND=noninteractive \
