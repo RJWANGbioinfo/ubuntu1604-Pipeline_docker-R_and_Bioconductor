@@ -11,10 +11,9 @@ RUN set -x \
   && apt-get install -y software-properties-common apt-transport-https ca-certificates apt-utils\
   && add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/' \
   && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 \    
-  && apt-get update \
-  && apt-get install -y libc6 libcurl4-openssl-dev libicu-dev libopenblas-base wget python-pip ruby ruby-dev \
-  && apt-get build-dep -y r-base-core r-base r-base-dev r-recommended \
-  && apt-get install -y r-base-core r-base r-base-dev r-recommended
+  && apt-get update \  
+  && apt-get install -y r-base-core r-base r-base-dev r-recommended \
+  && apt-get install -y libc6 libcurl4-openssl-dev libicu-dev libopenblas-base wget python-pip ruby ruby-dev
 
 RUN pip install awscli
 
