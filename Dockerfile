@@ -31,6 +31,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
                 pandoc-citeproc \
                 qpdf \
                 pandoc \
+                r-cran-formatr \
+                r-cran-ggplot2 \
+                r-cran-runit \
+                r-cran-testthat \
                 texinfo \
                 texlive-fonts-extra \
                 texlive-fonts-recommended \
