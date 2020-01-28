@@ -8,12 +8,12 @@ RUN set -x \
   && sed -i "s|# deb-src|deb-src|g" /etc/apt/sources.list \
   && export DEBIAN_FRONTEND=noninteractive \
   && apt-get update \
-  && apt-get install -y libcurl4-openssl-dev libicu-dev libopenblas-base wget python-pip ruby ruby-dev gdebi-core
-
-RUN wget https://cdn.rstudio.com/r/ubuntu-1604/pkgs/r-3.6.2_1_amd64.deb && gdebi r-3.6.2_1_amd64.deb
-
-RUN ln -s /opt/R/3.6.2/bin/R /usr/local/bin/R 
-RUN ln -s /opt/R/3.6.2/bin/Rscript /usr/local/bin/Rscript
+  && apt-get install -y software-properties-common apt-transport-https ca-certificates apt-utils\
+  && add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/' \
+  && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 \    
+  && apt-get update \
+  && apt-get install -y libcurl4-openssl-dev libicu-dev libopenblas-base wget python-pip ruby ruby-dev \
+  && apt-get build-dep -y r-base r-base-core r-base-dev r-recommended
 
 RUN pip install awscli
 
