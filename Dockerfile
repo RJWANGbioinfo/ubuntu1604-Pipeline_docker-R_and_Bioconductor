@@ -13,6 +13,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update \
 	&& apt-get install -y --no-install-recommends \
 	    apt-utils \
+		software-properties-common \
 		ed \
 		less \
 		locales \
@@ -32,7 +33,7 @@ RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
 
-RUN echo "deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/" > /etc/apt/sources.list.d/cran.list
+RUN add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu bionic-cran35/'
 
 # note the proxy for gpg
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
