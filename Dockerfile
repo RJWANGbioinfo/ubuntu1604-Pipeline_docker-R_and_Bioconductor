@@ -2,62 +2,51 @@ FROM ubuntu:xenial
 
 LABEL maintainer="Ruijia(Ray) Wang <Ruijia.Wang@umassmed.edu>"
 
-# Add user to 'staff' group, granting them write privileges to /usr/local/lib/R/site.library
-RUN useradd docker \
-	&& mkdir /home/docker \
-	&& chown docker:docker /home/docker \
-	&& addgroup docker staff
+ENV OS_IDENTIFIER ubuntu-1604
 
-ENV DEBIAN_FRONTEND noninteractive
+RUN set -x \
+  && sed -i "s|# deb-src|deb-src|g" /etc/apt/sources.list \
+  && export DEBIAN_FRONTEND=noninteractive \
+  && apt-get update \
+  && apt-get install -y --no-install-recommends software-properties-common apt-transport-https ca-certificates apt-utils\
+  && add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu xenial-cran35/' \
+  && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 \    
+  && apt-get update \  
+  && apt-get install -y --no-install-recommends r-base-core r-base r-base-dev r-recommended \
+  && apt-get install -y --no-install-recommends libc6 libcurl4-openssl-dev libicu-dev libopenblas-base wget python-pip ruby ruby-dev
 
-RUN apt-get update \
-	&& apt-get install -y --no-install-recommends \
-	    apt-utils \
-		software-properties-common \
-		ed \
-		less \
-		locales \
-		vim-tiny \
-		wget \
-		ca-certificates \
-		apt-transport-https \
-		gsfonts \
-		gnupg2 \
-	&& rm -rf /var/lib/apt/lists/*
+RUN pip install awscli
 
-# Configure default locale, see https://github.com/rocker-org/rocker/issues/19
-RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
-	&& locale-gen en_US.utf8 \
-	&& /usr/sbin/update-locale LANG=en_US.UTF-8
+RUN gem install fpm
 
-ENV LC_ALL en_US.UTF-8
-ENV LANG en_US.UTF-8
+RUN chmod 0777 /opt
 
-RUN add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu xenial-cran35/'
+# Override the default pager used by R
+ENV PAGER /usr/bin/pager
 
-# note the proxy for gpg
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
-
-ENV R_BASE_VERSION 3.6.2
-
-# Now install R and littler, and create a link for littler in /usr/local/bin
-# Also set a default CRAN repo, and make sure littler knows about it too
-RUN apt-get update \
-	&& apt-get install -y --no-install-recommends \
-		littler \
-        r-cran-littler \
-		r-base=${R_BASE_VERSION}* \
-		r-base-dev=${R_BASE_VERSION}* \
-		r-recommended=${R_BASE_VERSION}* \
-        && echo 'options(repos = c(CRAN = "https://cloud.r-project.org/"), download.file.method = "libcurl")' >> /etc/R/Rprofile.site \
-        && echo 'source("/etc/R/Rprofile.site")' >> /etc/littler.r \
-	&& ln -s /usr/share/doc/littler/examples/install.r /usr/local/bin/install.r \
-	&& ln -s /usr/share/doc/littler/examples/install2.r /usr/local/bin/install2.r \
-	&& ln -s /usr/share/doc/littler/examples/installGithub.r /usr/local/bin/installGithub.r \
-	&& ln -s /usr/share/doc/littler/examples/testInstalled.r /usr/local/bin/testInstalled.r \
-	&& install.r docopt \
-	&& rm -rf /tmp/downloaded_packages/ /tmp/*.rds \
-	&& rm -rf /var/lib/apt/lists/*  
+# Install packages
+RUN apt-get update && apt-get install -y --no-install-recommends \
+                ghostscript \
+                lmodern \
+                pandoc-citeproc \
+                qpdf \
+                pandoc \
+                r-cran-formatr \
+                r-cran-ggplot2 \
+                r-cran-runit \
+                r-cran-testthat \
+                texinfo \
+                texlive-fonts-extra \
+                texlive-fonts-recommended \
+                texlive-latex-extra \
+                texlive-latex-recommended \
+                texlive-luatex \
+                texlive-science \
+                texlive-xetex \
+		unzip libsqlite3-dev libbz2-dev libssl-dev python python-dev \
+                python-pip git libxml2-dev software-properties-common wget tree vim sed \
+                subversion g++ gcc gfortran curl zlib1g-dev build-essential \
+		libffi-dev  
 
 RUN pip install -U setuptools
 RUN R --slave -e "install.packages(c('BiocManager','devtools', 'gplots', 'R.utils', 'Seurat', 'rmarkdown', 'RColorBrewer', 'Cairo','dplyr','tidyr','magrittr','matrixStats','readr','openxlsx','PerformanceAnalytics','pheatmap','gridExtra','dendextend','scales','ggrepel'), dependencies = TRUE, repos='https://cloud.r-project.org')"
