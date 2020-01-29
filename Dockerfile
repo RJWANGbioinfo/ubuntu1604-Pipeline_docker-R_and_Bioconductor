@@ -15,6 +15,8 @@ RUN set -x \
   && apt-get install -y --no-install-recommends r-base-core r-base r-base-dev r-recommended \
   && apt-get install -y --no-install-recommends libc6 libcurl4-openssl-dev libicu-dev libopenblas-base wget python-pip ruby ruby-dev
 
+RUN pip install -U setuptools
+
 RUN pip install awscli
 
 RUN gem install fpm
@@ -48,7 +50,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
                 subversion g++ gcc gfortran curl zlib1g-dev build-essential \
 		libffi-dev  
 
-RUN pip install -U setuptools
+
 RUN R --slave -e "install.packages(c('BiocManager','devtools', 'gplots', 'R.utils', 'Seurat', 'rmarkdown', 'RColorBrewer', 'Cairo','dplyr','tidyr','magrittr','matrixStats','readr','openxlsx','PerformanceAnalytics','pheatmap','gridExtra','dendextend','scales','ggrepel'), dependencies = TRUE, repos='https://cloud.r-project.org')"
 RUN R --slave -e "BiocManager::install(c('BiocParallel','GenomicAlignments', 'GenomicRanges','rtracklayer', 'Rsamtools','limma','edgeR','org.Mm.eg.db','org.Hs.eg.db','org.Ce.eg.db','org.Dm.eg.db','ChIPseeker','clusterProfiler','Rsubread','SummarizedExperiment','DESeq2','APAlyzer'))"   
 RUN mkdir -p /nl
