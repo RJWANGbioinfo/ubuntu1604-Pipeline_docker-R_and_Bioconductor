@@ -52,5 +52,6 @@ RUN R --slave -e "BiocManager::install(c('BiocParallel','GenomicAlignments', 'Ge
 RUN mkdir -p /nl
 RUN mkdir -p /project
 RUN mkdir -p /share
+RUN ln -s /usr/lib/R/modules/lapack.so /usr/lib/libRlapack.so
 #X11 display fix
 #Xvfb :0 -ac -screen 0 1960x2000x24 &
