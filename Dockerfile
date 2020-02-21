@@ -53,5 +53,6 @@ RUN mkdir -p /nl
 RUN mkdir -p /project
 RUN mkdir -p /share
 RUN ln -s /usr/lib/R/modules/lapack.so /usr/lib/libRlapack.so
+RUN ln -s /usr/lib/libblas.so /usr/lib/libRblas.so
 #X11 display fix
 #Xvfb :0 -ac -screen 0 1960x2000x24 &
