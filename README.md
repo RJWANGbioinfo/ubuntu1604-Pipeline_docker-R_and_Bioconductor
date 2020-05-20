@@ -17,7 +17,7 @@
 | Seurat | rmarkdown | RColorBrewer | Cairo | tidyr |
 | magrittr | matrixStats | readr | openxlsx | PerformanceAnalytics |
 | pheatmap | gridExtra | dendextend | scales | ggrepel |
-| DoubletFinder |  |  |  |  |
+| DoubletFinder | remotes | cowplot |  |  |
 
 
 ### Bioconductor Libraries
@@ -26,5 +26,5 @@
 | --- | --- | --- | --- | --- |
 | BiocParallel | GenomicAlignments | GenomicRanges | rtracklayer | Rsamtools |
 | limma | edgeR | ChIPseeker | clusterProfiler | APAlyzer |
-| SingleR | cowplot | remotes |  |  |
+| SingleR |  |  |  |  |
 | DESeq2 | org.Mm.eg.db | org.Hs.eg.db | org.Ce.eg.db | org.Dm.eg.db |
