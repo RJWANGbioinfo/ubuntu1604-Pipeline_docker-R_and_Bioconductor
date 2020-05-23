@@ -41,7 +41,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
                 texlive-luatex \
                 texlive-science \
                 texlive-xetex \
-		unzip libsqlite3-dev libbz2-dev libssl-dev python python-dev \
+				unzip libsqlite3-dev libbz2-dev libssl-dev python python-dev \
                 python-pip git libxml2-dev tree vim sed \
                 subversion g++ gcc gfortran curl zlib1g-dev build-essential \
 		libffi-dev  
