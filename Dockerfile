@@ -18,7 +18,8 @@ RUN set -x \
 												libicu-dev libopenblas-base libfontconfig1-dev \
 												libcairo2-dev libudunits2-dev libgdal1-dev gdal-bin libproj-dev proj-data proj-bin libgdal-dev libgeos-dev libmysqlclient-dev \
 												libmagick++-dev libhdf5-dev wget python-pip ruby ruby-dev
-  
+
+												
 RUN pip install -U setuptools
 
 RUN pip install awscli
