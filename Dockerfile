@@ -10,12 +10,13 @@ RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends software-properties-common apt-transport-https ca-certificates apt-utils\
   && add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu xenial-cran35/' \
+  && add-apt-repository ppa:ubuntugis/ubuntugis-unstable \
   && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9 \    
   && apt-get update \  
   && apt-get install -y --no-install-recommends r-base-core r-base r-base-dev r-recommended \
   && apt-get install -y --no-install-recommends libc6 libcurl4-openssl-dev libpq-dev \
 												libicu-dev libopenblas-base libfontconfig1-dev \
-												libcairo2-dev libudunits2-dev libgdal1-dev gdal-bin libproj-dev proj-data proj-bin libgeos-dev libmysqlclient-dev \
+												libcairo2-dev libudunits2-dev libgdal1-dev gdal-bin libproj-dev proj-data proj-bin libgdal-dev libgeos-dev libmysqlclient-dev \
 												libmagick++-dev libhdf5-dev wget python-pip ruby ruby-dev
   
 RUN pip install -U setuptools
